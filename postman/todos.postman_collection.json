@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "5491c772-d783-4ba8-aad6-d1c29c6b507f",
+		"name": "todos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth0 signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"client_id\": \"oOKTBJ8HuBq31IoBsNJzogzHKuH01t3y\",\n    \"email\": \"harry.potter@hogwarts.com\",\n    \"password\": \"a@A54321\",\n    \"connection\": \"Username-Password-Authentication\",\n    \"username\": \"harrypotter\",\n    \"given_name\": \"Harry\",\n    \"family_name\": \"Potter\",\n    \"name\": \"harry Potter\",\n    \"nickname\": \"TheBoyWhoLived\",\n    \"picture\": \"http://example.org/jdoe.png/\"\n}"
+				},
+				"url": {
+					"raw": "https://dev-3za9w-z6.us.auth0.com/dbconnections/signup",
+					"protocol": "https",
+					"host": [
+						"dev-3za9w-z6",
+						"us",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"dbconnections",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth0 login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{admin_email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{admin_password}}",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{user_email}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "pasword",
+							"value": "{{user_password}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "audience",
+							"value": "https://todos-api.example.com",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "write:todos",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-3za9w-z6.us.auth0.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"dev-3za9w-z6",
+						"us",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create todo",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{admin_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{user_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Lili readings\",\n    \"description\": \"find a good book for Lili\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6000/api/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list todos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/todos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update todo",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{admin_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"grocery\",\n    \"description\": \"remember what to buy from the grocery\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6000/api/todos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"api",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete todo",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{admin_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:6000/api/todos/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"api",
+						"todos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
