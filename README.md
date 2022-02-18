@@ -30,6 +30,12 @@ there's two users with their credentials inside the environment variables,
 each with different role jhon: admin and harry: user.
 ```
 
+## What to do
+
+- Add validation using joi for example
+- create repository layer to make the storage configurable
+- relate todos to users so users can access their todos only
+
 ## Stay in touch
 
 - Author - Hussien Abdulrazek
